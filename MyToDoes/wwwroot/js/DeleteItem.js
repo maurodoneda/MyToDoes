@@ -1,7 +1,7 @@
 ﻿function DeleteItem(id) {
     $.ajax({
 
-        url: 'ToDoes/DeleteConfirmed',
+        url: 'ToDoes/Delete',
         data: { id: id },
 
         success: function (result) {

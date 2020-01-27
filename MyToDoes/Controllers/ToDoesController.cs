@@ -19,7 +19,7 @@ namespace MyToDoes.Controllers
             _context = context;
         }
 
-        // GET: ToDoes
+    
         public IActionResult Index()
         {
             return View();
@@ -28,6 +28,10 @@ namespace MyToDoes.Controllers
        private IEnumerable<ToDo> GetMyToDoes()
         {
             IEnumerable<ToDo> myToDoes = _context.ToDoes.ToList();
+
+            int completedTask = myToDoes.Where(x => x.IsDone == true).Count();
+            ViewBag.Percent = Math.Round(100f * ((float)completedTask / (float)myToDoes.Count()));
+
 
             return myToDoes;
         }
@@ -39,9 +43,6 @@ namespace MyToDoes.Controllers
    
 
      
-        // POST: ToDoes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Description,Date,IsDone")] ToDo toDo)
@@ -77,9 +78,8 @@ namespace MyToDoes.Controllers
           
         
 
-        // POST: ToDoes/Delete/5
-       
-        public async Task<IActionResult> DeleteConfirmed(int id)
+             
+        public async Task<IActionResult> Delete(int id)
         {
             var toDo = await _context.ToDoes.FindAsync(id);
             _context.ToDoes.Remove(toDo);

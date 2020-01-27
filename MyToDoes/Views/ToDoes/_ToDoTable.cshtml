@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<MyToDoes.Models.ToDo>
 
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width:@(ViewBag.Percent)%"></div>
+    </div>
+    <br />
 
 <table class="table">
     <tbody>
